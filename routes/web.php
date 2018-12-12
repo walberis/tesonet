@@ -16,4 +16,8 @@
 //});
 
 Route::get('/', 'HomeController@showHome');
-Route::get('/logout', 'LoginController@Logout');
+Route::get('/logout', 'Auth\LoginController@Logout');
+Route::get('/login', 'Auth\LoginController@Login')->name('login');
+Route::get('/gh-auth-verify', 'Auth\LoginController@Login')->name('ghAuthVerify');
+
+
