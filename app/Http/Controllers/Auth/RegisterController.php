@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/my-issues';
 
     /**
      * Create a new controller instance.
@@ -37,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('Logout');
     }
 
     /**
@@ -46,12 +47,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+
+    public function Register(Request $request) {
+
+        $credentials = app('App\Http\Controllers\HomeController')->authenticate($request);
+
+        $user = $this->create($credentials);
+
+        //$validator = $this->validator($credentials);
+
+//        if ($validator->fails()) {
+//            Session::flash('error', $validator->messages()->first());
+//            return redirect()->back();
+//        }
+        Auth::login($user, false);
+
+        return redirect()->route('myIssues');
+
+    }
+
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'access_token' => ['required', 'string', 'max:100'],
         ]);
     }
 
@@ -64,9 +84,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'access_token' => $data['access_token'],
         ]);
     }
+
+    public function Logout(){
+        Auth::logout();
+        return redirect()->route('home');
+    }
+
 }

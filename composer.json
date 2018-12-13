@@ -35,8 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Authentication\\": "app/GitHubAuth"
+            "App\\": "app/"
         },
         "classmap": [
             "database/seeds",

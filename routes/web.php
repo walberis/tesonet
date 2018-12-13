@@ -11,13 +11,17 @@
 |
 */
 
-//Route::get('/', function () {
+//Route::get('/my-issues', function () {
 //    return view('home');
 //});
+Route::get('/my-issues', 'HomeController@showListIssues')->name('myIssues')->middleware('auth');
 
-Route::get('/', 'HomeController@showHome');
-Route::get('/logout', 'Auth\LoginController@Logout');
-Route::get('/login', 'Auth\LoginController@Login')->name('login');
-Route::get('/gh-auth-verify', 'Auth\LoginController@Login')->name('ghAuthVerify');
+Route::get('/logout', 'Auth\RegisterController@Logout')->name('logout');
+Route::get('/verify-login', 'Auth\RegisterController@Register')->name('verifyLogin');
+
+Route::get('/', 'HomeController@showHome')->name('home')->middleware('guest');
+Route::get('/my-issues', 'HomeController@showListIssues')->name('myIssues')->middleware('auth');
+
+
 
 

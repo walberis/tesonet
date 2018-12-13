@@ -8611,9 +8611,36 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+.full-height {
+  height: 100vh;
+}
+
+.flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.position-ref {
+  position: relative;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  font-size: 84px;
+}
+
+.m-b-md {
+  margin-bottom: 30px;
+}
+
+.btn-light:hover, .btn-light:focus, .btn-light:active, .btn-light.active, .open > .dropdown-toggle.btn-light {
+  color: #fff;
+  background-color: #99cc33;
+  border-color: #99cc33;
 }
 
 /*# sourceMappingURL=app.css.map */
