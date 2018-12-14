@@ -12,14 +12,13 @@
     @push('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @endpush
-
     @stack('styles')
+
 
 </head>
 <body>
 
-<div>
-
+<div class="w-100 p-4">
     @yield('content')
 </div>
 

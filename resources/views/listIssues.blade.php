@@ -2,43 +2,33 @@
 
 @section('title', 'Home')
 
-<header class="row">
-    @include('layouts.header')
-</header>
-
-
 @section('content')
 
+@include('layouts.header')
 
+        {{--p-xl-4 p-lg-4 p-md-4 p-sm-4--}}
+    <div class="row mt-5">
+        <div class="col-md-6" >
 
-
-
-          <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-
-                            @foreach ($issues as $issue)
-
-                                <div class="card" style="width: 18rem;">
-
-                                    <div class="card-body">
-                                        <p class="card-text">{{$issue->title}}</p>
-                                    </div>
-                                </div>
-
-
-
-                            @endforeach
-
-                        </div>
-                        <div class="col">
-                            2 of 2
-                        </div>
-                    </div>
+            @foreach ($issues as $issue)
+            <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">{{$issue->title}}</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" href="#">Featured post</a>
+                    </h3>
+                    <div class="mb-1 text-muted">Nov 12</div>
+                </div>
+                <img class="card-img-right flex-auto d-none d-md-block" data-src="{{ asset('img/ico-logout.png') }}" alt="Card image cap">
             </div>
+
+            @endforeach
         </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
 @stop
 
 
