@@ -5,21 +5,44 @@
 @section('content')
 
 @include('layouts.header')
-
+<style>
+    .comment-icon  {
+        background: url("/img/ico-logout.png") no-repeat;
+        padding-right:20px;
+    }
+</style>
         {{--p-xl-4 p-lg-4 p-md-4 p-sm-4--}}
     <div class="row mt-5">
         <div class="col-md-6" >
 
             @foreach ($issues as $issue)
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
-                <div class="card-body d-flex flex-column align-items-start">
-                    <strong class="d-inline-block mb-2 text-primary">{{$issue->title}}</strong>
-                    <h3 class="mb-0">
-                        <a class="text-dark" href="#">Featured post</a>
-                    </h3>
-                    <div class="mb-1 text-muted">Nov 12</div>
+                <div class="card-body d-flex flex-column ">
+                    <div class="row">
+                        <img src="{{ asset('img/ico-logout.png') }}">
+                        <div class="col-10 align-items-start align-text-top">
+
+                                <a class="text-dark" href="#">
+                                    {{$issue->title}}
+                                </a>
+                                <div class="mb-1 text-muted">Nov 12</div>
+
+
+
+                        </div>
+                        <div class="col-1 align-top">
+                            @if($issue->comments > 0)
+                                <div class="float-right">
+                                    <img src="{{ asset('img/ico-logout.png') }}">
+                                    <a class="comments-count" href="#">{{$issue->comments}}</a>
+                                </div>
+                            @endif
+                        </div>
+
+                    </div>
                 </div>
-                <img class="card-img-right flex-auto d-none d-md-block" data-src="{{ asset('img/ico-logout.png') }}" alt="Card image cap">
+
+
             </div>
 
             @endforeach
