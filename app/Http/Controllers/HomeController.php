@@ -17,6 +17,7 @@ use GuzzleHttp\Client;
 //TODO Params kiekvienos funkcijos
 //TODO VALIDACIJA
 //TODO MORE SETTERS AND GETTERS
+//TODO PHP VERSION REQUIRED
 
 class HomeController extends BaseController
 {
@@ -27,6 +28,7 @@ class HomeController extends BaseController
     const GITHUB_API_ISSUES = 'https://api.github.com/user/issues';
     const GITHUB_API_ISSUES_SEACRH = 'https://api.github.com/search/issues';
     const GITHUB_API_USER = 'https://api.github.com/user';
+    const GITHUB_API_SETTING_PER_PAGE = 2;
 
     public function showHome(){
 
@@ -92,7 +94,7 @@ class HomeController extends BaseController
             'query'=>[
                 'page'=> $page,
                 'state' => $state,
-                'per_page' => 10
+                'per_page' => self::GITHUB_API_SETTING_PER_PAGE
             ]
         ], ['debug' => true]);
 
@@ -109,10 +111,10 @@ class HomeController extends BaseController
 
         $lastPage = 1;
         foreach ($linkHeader as $link) {
-            preg_match('/page=([0-9])&state=([a-z]*)&per_page=([0-9]*)>; rel="last"/', $link, $matches);
+            preg_match('/page=([0-9])&state=([a-z]*)&per_page=([0-9]*)>; rel="last"/', $link, $result);
 
-            if ($matches) {
-                $lastPage = $matches[1];
+            if ($result) {
+                $lastPage = $result[1];
             }
         }
        return $lastPage;
