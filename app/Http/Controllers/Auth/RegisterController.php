@@ -53,7 +53,7 @@ class RegisterController extends Controller
 
         $credentials = app('App\Http\Controllers\HomeController')->authenticate($request);
 
-        $user = $this->create($credentials);
+        $user = $this->createOrUpdateUser($credentials);
 
         //$validator = $this->validator($credentials);
 
@@ -81,11 +81,19 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function createOrUpdateUser(array $data)
     {
-        return User::create([
-            'access_token' => $data['access_token'],
-        ]);
+        $apiUserData = app('App\Http\Controllers\HomeController')->getUser($data['access_token']);
+
+       return User::updateOrCreate(
+            ['login' => $apiUserData->login],
+
+            [
+                'access_token' => $data['access_token'],
+                'avatar_url' => $apiUserData->avatar_url,
+                'login' => $apiUserData->login
+            ]
+        );
     }
 
     public function Logout(){

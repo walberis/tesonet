@@ -16,6 +16,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('access_token', 100)->unique();
+            $table->string('login', 100)->unique();
+            $table->string('avatar_url', 100);
+
             $table->timestamps();
         });
     }

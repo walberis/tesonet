@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'access_token'
+        'name', 'access_token', 'login', 'avatar_url'
     ];
     public $remember_token=false;
 

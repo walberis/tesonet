@@ -8643,4 +8643,64 @@ h3 {
   border-color: #99cc33;
 }
 
+.main-header {
+  padding-top: 100px;
+}
+
+.comment-icon {
+  background: url("/img/ico-logout.png") no-repeat;
+}
+
+a, a:hover {
+  color: inherit;
+}
+
+.login-name {
+  color: #85B32B;
+}
+
+.rounded-pagination > a, .rounded-pagination > span {
+  border-radius: 50% !important;
+  margin: 0 5px;
+}
+
+.page-item.active .page-link, .page-link:hover {
+  z-index: 1;
+  color: #fff;
+  background-color: #99cc33;
+  border-color: #99cc33;
+}
+
+.pagination > li.active > a {
+  background: #99cc33;
+  color: #fff;
+}
+
+.page-link-nav {
+  position: relative;
+  display: block;
+  padding: 0.5rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #99cc33;
+  background-color: inherit;
+  border: none;
+}
+
+.page-item-nav.active .page-link-nav, .page-link-nav:hover {
+  z-index: 1;
+  color: #99cc33;
+  background-color: inherit;
+  border: none;
+  text-decoration: underline;
+}
+
+.page-item-nav.disabled .page-link-nav {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  background-color: inherit;
+  border: none;
+}
+
 /*# sourceMappingURL=app.css.map */
