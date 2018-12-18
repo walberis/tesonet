@@ -5,7 +5,7 @@
 @section('content')
 
 @include('layouts.header')
-
+<div class="container-fluid">
     <div class="row mt-5">
         <div class=" mx-auto col-md-8" >
             <div class="mb-3"> <img src="{{ asset('img/ico-back.png') }}"> <a class="user-color" href="{{route('myIssues', array('page' => $page, 'state' =>$state))}}">Back to Issues</a></div>
@@ -21,9 +21,9 @@
                             @if($issue->comments > 0)
                                 <a class="text-muted-small dot-sign">{{$issue->comments}}</a>
                                 @if ($issue->comments > 1 )
-                                        comments
+                                    comments
                                 @else
-                                        comment
+                                    comment
                                 @endif
                             @endif
                         </div>
@@ -31,8 +31,9 @@
                 </div>
             </div>
         </div>
-
     </div>
+</div>
+
 
 @stop
 

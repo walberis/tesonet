@@ -70,8 +70,6 @@ class HomeController extends BaseController
 
         $issuesData = $this->getIssues($page, $state);
 
-
-        $lastPage = 1;
         $issuesCountByState = $this->getIssuesCountByState();
 
         return view('listIssues')->with([

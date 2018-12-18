@@ -64,15 +64,12 @@
                         <a class="page-link page-link-nav" href="#" tabindex="-1">Previous</a>
                     </li>
                     @php $pageCount = 1 @endphp
-                    @while( $pageCount <= 3 && $pageCount <= $lastPage )
+                    @while( $pageCount <= 6 && $pageCount <= $lastPage )
                     <li class="page-item rounded-pagination {{$page == $pageCount ? 'active' : ''}}">
                         <a class="page-link" href="{{route('myIssues', array('page' => $pageCount, 'state' =>$state))}}">{{$pageCount}}</a>
                     </li>
                         @php $pageCount++ @endphp
                     @endwhile
-
-
-                    <li>...</li>
                             {{--@for ($pageCount = $page -1 ; $pageCount <= $page +1; $pageCount++ )--}}
                                 {{--@if($pageCount == $page)--}}
 
@@ -86,10 +83,10 @@
                                     {{--@endif--}}
                             {{--@endfor--}}
 
-                    <li>...</li>
-                        @if($lastPage > 5)
-                        @php $pageCount = $lastPage @endphp
 
+                        @if($lastPage > 6)
+                        @php $pageCount = $lastPage @endphp
+                        <li>...</li>
                         @while( $pageCount <= $lastPage )
                             <li class="page-item rounded-pagination {{$page == $pageCount ? 'active' : ''}}">
                                 <a class="page-link" href="{{route('myIssues', array('page' => $pageCount, 'state' =>$state))}}">{{$pageCount}}</a>

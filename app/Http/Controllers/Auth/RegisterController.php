@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Services\AuthenticateService;
+use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     /*
@@ -30,15 +28,17 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/my-issues';
+    protected $authenticateService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(AuthenticateService $authenticateService)
     {
         $this->middleware('guest')->except('Logout');
+        $this->authenticateService = $authenticateService;
     }
 
     /**
@@ -49,51 +49,16 @@ class RegisterController extends Controller
      */
 
 
-    public function Register(Request $request) {
+    public function Register(Request $request ) {
 
-        $credentials = app('App\Http\Controllers\HomeController')->authenticate($request);
+        $user = $this->authenticateService->authenticate($request);
 
-        $user = $this->createOrUpdateUser($credentials);
-
-        //$validator = $this->validator($credentials);
-
-//        if ($validator->fails()) {
-//            Session::flash('error', $validator->messages()->first());
-//            return redirect()->back();
-//        }
-        Auth::login($user, false);
+        if($user){
+            Auth::login($user, false);
+        }
 
         return redirect()->route('myIssues');
 
-    }
-
-
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'access_token' => ['required', 'string', 'max:100'],
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function createOrUpdateUser(array $data)
-    {
-        $apiUserData = app('App\Http\Controllers\HomeController')->getUser($data['access_token']);
-
-       return User::updateOrCreate(
-            ['login' => $apiUserData->login],
-
-            [
-                'access_token' => $data['access_token'],
-                'avatar_url' => $apiUserData->avatar_url,
-                'login' => $apiUserData->login
-            ]
-        );
     }
 
     public function Logout(){
