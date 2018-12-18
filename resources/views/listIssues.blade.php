@@ -36,10 +36,10 @@
                         <img src="{{ asset('img/exclamation-icon.png') }}">
                     </div>
                     <div class=" mx-2">
-                            <a class="text-dark" href="">
+                            <a class="text-dark" href="{{route('Issue', array('issueUrl' =>$issue->url, 'page' => $page, 'state' => $state))}}">
                                 {{$issue->title}}
                             </a>
-                        <div class="mb-1 text-muted small">#{{$issue->number}} opened {{IssueHelper::getTimeDiff($issue)}} by <a href=""><span class="login-name">{{$issue->user->login}}</span></a></div>
+                        <div class="mb-1 text-muted small">#{{$issue->number}} opened {{IssueHelper::getTimeDiff($issue)}} by <a class="user-color" href="">{{$issue->user->login}}</a></div>
 
                     </div>
                         @if($issue->comments > 0)
@@ -73,18 +73,18 @@
 
 
                     <li>...</li>
-                            @for ($pageCount = $page -1 ; $pageCount <= $page +1; $pageCount++ )
-                                @if($pageCount == $page)
+                            {{--@for ($pageCount = $page -1 ; $pageCount <= $page +1; $pageCount++ )--}}
+                                {{--@if($pageCount == $page)--}}
 
-                                    <li class="page-item rounded-pagination active">
-                                         <a class="page-link" href="{{route('myIssues', array('page' => $page, 'state' =>$state))}}">{{$page}}</a>
-                                     </li>
-                                    @else
-                                        <li class="page-item rounded-pagination">
-                                            <a class="page-link" href="{{route('myIssues', array('page' => $pageCount, 'state' =>$state))}}">{{$pageCount}}</a>
-                                         </li>
-                                    @endif
-                            @endfor
+                                    {{--<li class="page-item rounded-pagination active">--}}
+                                         {{--<a class="page-link" href="{{route('myIssues', array('page' => $page, 'state' =>$state))}}">{{$page}}</a>--}}
+                                     {{--</li>--}}
+                                    {{--@else--}}
+                                        {{--<li class="page-item rounded-pagination">--}}
+                                            {{--<a class="page-link" href="{{route('myIssues', array('page' => $pageCount, 'state' =>$state))}}">{{$pageCount}}</a>--}}
+                                         {{--</li>--}}
+                                    {{--@endif--}}
+                            {{--@endfor--}}
 
                     <li>...</li>
                         @if($lastPage > 5)

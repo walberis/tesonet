@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\IssueService;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -28,7 +29,7 @@ class HomeController extends BaseController
     const GITHUB_API_ISSUES = 'https://api.github.com/user/issues';
     const GITHUB_API_ISSUES_SEACRH = 'https://api.github.com/search/issues';
     const GITHUB_API_USER = 'https://api.github.com/user';
-    const GITHUB_API_SETTING_PER_PAGE = 2;
+    const GITHUB_API_SETTING_PER_PAGE = 10;
 
     public function showHome(){
 
@@ -96,7 +97,7 @@ class HomeController extends BaseController
                 'state' => $state,
                 'per_page' => self::GITHUB_API_SETTING_PER_PAGE
             ]
-        ], ['debug' => true]);
+        ]);
 
         $lastPage = $this->getIssuesLastPage($result);
 
@@ -150,6 +151,15 @@ class HomeController extends BaseController
            'closedIssuesCount' => $closedIssuesCount->total_count,
 
        ];
+    }
+
+    public function showIssue($issueUrl, $page, $state){
+
+        $issue = IssueService::getIssue($issueUrl);
+        $issueComments = IssueService::getIssueComments($issueUrl);;
+
+        return view('issue', ['issue' => $issue, 'comments' => $issueComments , 'page' => $page, 'state' => $state]);
+
     }
 }
 
