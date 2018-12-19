@@ -24,8 +24,24 @@ class ApiRequest
         return $bodyParams ;
     }
 
-    public function getRequest(){
+    public function getRequest($uri, $access_token, $query = null){
 
+        $client = new Client();
+
+        if ($query){
+            return  $client->GET($uri, [
+                'headers' => [
+                    'Authorization' => 'token '. $access_token
+                ],
+                'query' => $query
+            ]);
+        }
+
+        return  $client->GET($uri, [
+            'headers' => [
+                'Authorization' => 'token '. $access_token
+            ],
+        ]);
 
     }
 }

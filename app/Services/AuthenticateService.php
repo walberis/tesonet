@@ -21,29 +21,22 @@ class AuthenticateService
     public function authenticate(Request $request){
 
         $result = $this->ApiRequest->authRequest($request->query('code'));
-
-
-
-        $user = $this->createOrUpdateUser($result);
+        $user = $this->createOrUpdateUser($result['access_token']);
 
         return $user;
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function createOrUpdateUser(array $data)
+    protected function createOrUpdateUser($access_token)
     {
-        $apiUserData = app('App\Http\Controllers\HomeController')->getUser($data['access_token']);
+        $response = $this->ApiRequest->getRequest(config('github.links.GITHUB_API_USER'), $access_token);
+
+        $apiUserData =  json_decode($response->getBody());
 
         return User::updateOrCreate(
             ['login' => $apiUserData->login],
 
             [
-                'access_token' => $data['access_token'],
+                'access_token' => $access_token,
                 'avatar_url' => $apiUserData->avatar_url,
                 'login' => $apiUserData->login
             ]

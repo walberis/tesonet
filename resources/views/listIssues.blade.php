@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Home')
+@section('title', 'List Issues')
 
 @section('content')
 
@@ -8,7 +8,7 @@
 
     <div class="row mt-5">
         <div class="col-md-6" >
-
+            <div class="scrollable" id="style-1">
             <div class="row justify-content-md-center">
 
                 <div class="col-md-auto">
@@ -36,10 +36,10 @@
                         <img src="{{ asset('img/exclamation-icon.png') }}">
                     </div>
                     <div class=" mx-2">
-                            <a class="text-dark" href="{{route('Issue', array('issueUrl' =>$issue->url, 'page' => $page, 'state' => $state))}}">
+                            <a class="text-dark" href="{{route('Issue', array('login' =>$issue->user->login, 'repo' => $issue->repository->name, 'number' => $issue->number))}}">
                                 {{$issue->title}}
                             </a>
-                        <div class="mb-1 text-muted small">#{{$issue->number}} opened {{IssueHelper::getTimeDiff($issue)}} by <a class="user-color" href="">{{$issue->user->login}}</a></div>
+                        <div class="mb-1 text-muted small">#{{$issue->number}} opened {{IssueHelper::getTimeDiff($issue->created_at)}} by <a class="user-color" href="">{{$issue->user->login}}</a></div>
 
                     </div>
                         @if($issue->comments > 0)
@@ -57,7 +57,7 @@
             </div>
 
             @endforeach
-
+            </div>
             <nav aria-label="...">
                 <ul class="pagination justify-content-center">
                     <li class="page-item page-item-nav {{$page == 1 ? 'disabled' : ''}}">

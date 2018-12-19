@@ -4,17 +4,14 @@ namespace  App\Helpers;
 
 use Carbon\Carbon;
 use DateTimeInterface;
-
+use DateTime;
 class IssueHelper
 {
-    public static function getTimeDiff($issue = null)
+    public static function getTimeDiff($createdAt)
     {
-        if(!$issue){
-            return;
-        }
         $DateTimeNow = Carbon::now();
 
-        $from = Carbon::createFromFormat(DateTimeInterface::ISO8601, $issue->created_at);
+        $from = Carbon::createFromFormat(DateTime::ISO8601, $createdAt);
 
         return $from->diffForHumans($DateTimeNow, null, false);
 

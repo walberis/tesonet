@@ -135,5 +135,57 @@ a, a:hover {
   background:url("../img/bg.png") no-repeat !important;
   padding-top:100px;
   background-size:cover;
+}
 
+.small-img {
+  height: 50px;
+}
+.card-header:before {
+
+  z-index: -1;
+  position: absolute;
+  top: 15px;
+  left: 0%;
+  margin-left: -10px;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-right: 10px solid #FFFFFF;
+  border-bottom: 10px solid transparent;
+
+}
+
+.card-border {
+  border: 1px solid $backgroundColour;
+  box-shadow: 1px 1px $backgroundColour;
+}
+.card-border-bottom {
+  border-bottom: 1px solid $backgroundColour;
+}
+
+#style-1::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #555;
+}
+.scrollable{
+  height:550px;
+  overflow-y: scroll;
+  max-width: 100%;
+  overflow-x: hidden;
 }

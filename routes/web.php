@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/my-issues/{page?}/{state?}', 'HomeController@showListIssues')->name('myIssues')->middleware('auth');
-Route::get('/issue/{issueUrl}/{page}/{state}', 'HomeController@showIssue')
-    ->where('issueUrl', '(.*)')
-    ->name('Issue')->middleware('auth');
+Route::get('/my-issues/{page?}/{state?}', 'IssueController@showListIssues')->name('myIssues')->middleware('auth');
+Route::get('/issue/{login}/{repo}/{number}', 'IssueController@showIssue')->name('Issue')->middleware('auth');
 
 Route::get('/logout', 'Auth\RegisterController@Logout')->name('logout');
 Route::get('/verify-login', 'Auth\RegisterController@Register')->name('verifyLogin');

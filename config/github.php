@@ -7,6 +7,7 @@ return array(
     ),
     'links' => array(
         'GITHUB_API_ISSUES' => 'https://api.github.com/user/issues',
+        'GITHUB_API_ISSUE' => 'https://api.github.com/repos',
         'GITHUB_API_ISSUES_SEACRH' => 'https://api.github.com/search/issues',
         'GITHUB_API_USER' => 'https://api.github.com/user',
         'GITHUB_ACCESS_TOKEN' => 'https://github.com/login/oauth/access_token'
