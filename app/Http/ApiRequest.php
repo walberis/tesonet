@@ -8,6 +8,10 @@ use GuzzleHttp\Client;
 
 class ApiRequest
 {
+    /**
+     * @param $session_code
+     * @return mixed
+     */
     public function authRequest($session_code){
         $client = new Client();
 
@@ -24,6 +28,12 @@ class ApiRequest
         return $bodyParams ;
     }
 
+    /**
+     * @param $uri
+     * @param $access_token
+     * @param null $query
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function getRequest($uri, $access_token, $query = null){
 
         $client = new Client();

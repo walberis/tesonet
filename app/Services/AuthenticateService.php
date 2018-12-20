@@ -12,12 +12,20 @@ class AuthenticateService
 
     protected $ApiRequest;
 
-    public function __construct( ApiRequest $ApiRequest )
+    /**
+     * AuthenticateService constructor.
+     * @param ApiRequest $ApiRequest
+     */
+    public function __construct(ApiRequest $ApiRequest )
     {
         $this->ApiRequest = $ApiRequest;
     }
 
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function authenticate(Request $request){
 
         $result = $this->ApiRequest->authRequest($request->query('code'));
@@ -26,6 +34,10 @@ class AuthenticateService
         return $user;
     }
 
+    /**
+     * @param $access_token
+     * @return mixed
+     */
     protected function createOrUpdateUser($access_token)
     {
         $response = $this->ApiRequest->getRequest(config('github.links.GITHUB_API_USER'), $access_token);

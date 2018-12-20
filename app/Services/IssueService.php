@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use App\Http\ApiRequest;
 use App\User;
@@ -12,12 +11,21 @@ class IssueService
 {
     protected $ApiRequest;
 
-    public function __construct( ApiRequest $ApiRequest )
+    /**
+     * IssueService constructor.
+     * @param ApiRequest $ApiRequest
+     */
+    public function __construct(ApiRequest $ApiRequest )
     {
         $this->ApiRequest = $ApiRequest;
     }
 
-    public function getIssues( $page = 1,  $state = 'all'){
+    /**
+     * @param int $page
+     * @param string $state
+     * @return array
+     */
+    public function getIssues($page = 1, $state = 'all'){
 
         $user = Auth::user();
 
@@ -31,12 +39,19 @@ class IssueService
         $lastPage = $this->getIssuesLastPage($response);
         $issuesCountByState = $this->getIssuesCountByState($user);
 
+
         return ['issues' => json_decode($response->getBody()),
                 'lastPage' => $lastPage,
                 'issuesCountByState' => $issuesCountByState
                 ];
     }
 
+    /**
+     * @param $login
+     * @param $repo
+     * @param $number
+     * @return array
+     */
     public function getIssue($login, $repo, $number){
 
         $user = Auth::user();
@@ -54,6 +69,10 @@ class IssueService
     }
 
 
+    /**
+     * @param User $user
+     * @return array
+     */
     private function getIssuesCountByState(User $user){
 
         $uriOpen = config('github.links.GITHUB_API_ISSUES_SEACRH') . '?q=assignee:'. $user->login .' type:issue state:open ';
@@ -72,18 +91,29 @@ class IssueService
         ];
     }
 
+    /**
+     * @param $response
+     * @return int
+     */
     private function getIssuesLastPage($response){
 
         $linkHeader = $response->getHeader('Link');
         $lastPage = 1;
+
         foreach ($linkHeader as $link) {
-            preg_match('/page=([0-9])&state=([a-z]*)&per_page=([0-9]*)>; rel="last"/', $link, $result);
+            preg_match('/page=([0-9]*)&state=([a-z]*)&per_page=([0-9]*)>; rel="last"/', $link, $result);
+            preg_match('/page=([0-9]*)&state=([a-z]*)&per_page=([0-9]*)>; rel="prev"/', $link, $resultForLast);
+
 
             if ($result) {
                 $lastPage = $result[1];
             }
+
+            if (!$result && $resultForLast) {
+                $lastPage = $resultForLast[1] + 1;
+            }
         }
-        return $lastPage;
+        return (int)$lastPage;
     }
 }
 

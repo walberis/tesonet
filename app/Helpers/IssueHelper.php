@@ -11,7 +11,7 @@ class IssueHelper
     {
         $DateTimeNow = Carbon::now();
 
-        $from = Carbon::createFromFormat(DateTime::ISO8601, $createdAt);
+        $from = Carbon::createFromFormat(DateTimeInterface::ISO8601, $createdAt);
 
         return $from->diffForHumans($DateTimeNow, null, false);
 

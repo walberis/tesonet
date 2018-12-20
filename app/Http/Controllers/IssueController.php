@@ -8,12 +8,22 @@ use App\Services\IssueService;
 class IssueController extends Controller
 {
     protected $issueService;
+
+    /**
+     * IssueController constructor.
+     * @param IssueService $issueService
+     */
     public function __construct(IssueService $issueService)
     {
         $this->middleware('auth');
         $this->issueService = $issueService;
     }
 
+    /**
+     * @param int $page
+     * @param string $state
+     * @return $this
+     */
     public function showListIssues ($page = 1, $state = 'all'){
 
         $issuesData = $this->issueService->getIssues($page, $state);
@@ -26,6 +36,12 @@ class IssueController extends Controller
             'state' => $state ]);
     }
 
+    /**
+     * @param $login
+     * @param $repo
+     * @param $number
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showIssue($login, $repo, $number){
 
         $issueData = $this->issueService->getIssue($login, $repo, $number);

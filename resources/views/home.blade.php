@@ -2,7 +2,7 @@
 
 @section('title', 'Home')
 @section('content')
-          <div class="flex-center position-ref full-height login-bg">
+          <div class="flex-center position-ref full-height">
             <div class="content">
                 <img src="{{ asset('img/logo-testio-white.png') }}">
                 <div class="title m-b-md">
